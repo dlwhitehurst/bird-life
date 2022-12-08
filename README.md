@@ -30,7 +30,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/dlwhitehurst/bird-life">
-    <img src="https://dlwhitehurst.com" alt="Logo" width="80" height="80">
+    <img src="https://dlwhitehurst.com/vy.png" alt="Logo" width="80" height="80">
   </a>
 
 <h3 align="center">Bird Life</h3>
