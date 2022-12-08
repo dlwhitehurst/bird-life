@@ -13,7 +13,7 @@
         http://www.mulesoft.org/schema/mule/core
         http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 ">
-	<configuration-properties doc:name="application.yaml" file="application.yaml" />
+    <configuration-properties doc:name="application.yaml" file="application.yaml" />
     <apikit:config name="api-config" api="api.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
     <http:listener-config name="api-httpListenerConfig">
         <http:listener-connection host="0.0.0.0" port="8081" />
