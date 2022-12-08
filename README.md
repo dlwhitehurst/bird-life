@@ -120,7 +120,14 @@ Clone the project locally and then run the API deployment in Anypoint Studio
 
 ### Make a Request to the Mule Server
 There are several ways to interact with the REST API. Mulesoft recommends
-the use of ARC Client or Advanced Rest Client [![Advanced Rest Client]][arc-url]
+the use of ARC Client or [Advanced Rest Client][arc-url]. curl is more cryptic
+but easier to show the request in a single statement or command. 
+
+The following curl command will call the GET API resource for `/photos`.
+
+```bash
+curl -i http://localhost:8081/api/v1/photos
+```
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
