@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
+	<flow name="get-photos">
+		<ee:transform doc:name="Initial">
+            <ee:message>
+                <ee:set-payload resource="modules/initial-payload.dwl" />
+            </ee:message>    
+        </ee:transform>
+        <flow-ref doc:name="pagination-analysis" name="pagination-analysis" />
+        <logger level="INFO" doc:name="Logger" doc:id="5f3cd8fe-212f-414e-88b2-a47619efebb4" />
+		<ee:transform doc:name="Paged">
+            <ee:message>
+                <ee:set-payload resource="modules/paged-payload.dwl" />
+            </ee:message>
+        </ee:transform>
+	</flow>	
+</mule>

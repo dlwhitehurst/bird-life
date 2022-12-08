@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule 
+	xmlns="http://www.mulesoft.org/schema/mule/core" 
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core 
+		http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+">
+
+    <sub-flow name="pagination-analysis" >
+		<flow-ref doc:name="static-vars" doc:id="f5559f0c-b93f-45bf-be12-15f18ffe0029" name="static-vars" />
+		<choice doc:name="Params Specified" doc:id="31e9818b-69dc-4347-bb73-2fc6a1ef1998" >
+			<when expression="#[message.attributes.queryParams.startItem != null and message.attributes.queryParams.maxItemCount != null]">
+				<flow-ref doc:name="set-vars" doc:id="70b1c1f7-b102-4c51-a97c-7dc1c918ae72" name="set-vars" />
+			</when>
+			<otherwise >
+				<flow-ref doc:name="default-vars" doc:id="c6e37cb5-8bc7-4926-be65-00dd48f21ca5" name="default-vars"/>
+			</otherwise>
+		</choice>
+		<choice doc:name="&gt; 1 Page" doc:id="d00fdff7-4a30-4a05-be65-74681209972d" >
+			<when expression="#[vars.maxItemCount &lt; vars.initialSize]">
+				<logger level="INFO" doc:name="Logger" doc:id="e388fe18-f1b9-46ab-8798-bd4b28146ff2" message="Do the MATH!"/>
+				<flow-ref doc:name="calc-vars" doc:id="789581c7-4446-457b-89c5-246f14e90ae0" name="calc-vars" />
+				<choice doc:name="Choice" doc:id="57a2875d-bdc2-4372-ad6b-39737f95e23a">
+			<when expression="#[vars.startItem as Number &gt;= vars.initialSize as Number]">
+				<raise-error doc:name="Raise error" type="ERR:BAD_START_ITEM" description="The starting item (index) is outside the scope of this request" />
+			</when>
+			<when expression="#[vars.startItem &lt;= 0]">
+				<raise-error doc:name="Raise error" type="ERR:BAD_START_ITEM" description="The start item (index) is outside the scope of this request" />
+			</when>
+			<otherwise>
+				<flow-ref doc:name="calc-indices" doc:id="7dd99bef-a91c-4724-8afb-d5bd7ee16dd5" name="calc-indices" />
+			</otherwise>
+		</choice>
+			</when>
+			<otherwise >
+				<logger level="INFO" doc:name="Logger" doc:id="fb90cb81-3ec5-4401-b31c-d875b514b20d" message="We're DONE"/>
+				<set-variable value="#[vars.initialSize - 1]" doc:name="endIndex" doc:id="41ddfc98-023c-4fc2-a36c-976bb7aacaa8" variableName="endIndex"/>
+				<set-variable value="#[0]" doc:name="moduloRecords" doc:id="964bfbcc-4c94-483c-aa49-c97062433c4b" variableName="moduloRecords"/>
+			</otherwise>
+		</choice>
+    </sub-flow>
+
+    <sub-flow name="static-vars" doc:id="957a743a-e1c1-4376-b8be-5fa59308f76b" >
+		<set-variable value="#['/api/v1/photos']" doc:name="Link Self" variableName="linkSelf" />
+		<set-variable value="#[sizeOf(payload.data) default 0]" doc:name="initialSize" variableName="initialSize" />
+		<set-variable value="#[0]" doc:name="startIndex" doc:id="f25e23d2-1362-48d0-b57d-9d8e9f056a2b" variableName="startIndex"/>
+		<set-variable value="#[vars.initialSize -1]" doc:name="lastIndex" doc:id="e804c0f9-d98b-48fb-a318-24dcae7814aa" variableName="lastIndex"/>
+	</sub-flow>
+
+    <sub-flow name="set-vars" doc:id="38d4b1a4-d211-49c4-be80-d85ad11c92ec" >
+		<set-variable value="#[attributes.queryParams.startItem]" doc:name="startItem" variableName="startItem" />
+		<set-variable value="#[vars.startItem - 1]" doc:name="startIndex" doc:id="a6ca1e2a-43ab-4aac-b6c7-6396b6e1cdd0" variableName="startIndex"/>
+		<set-variable value="#[message.attributes.queryParams.maxItemCount]" doc:name="maxItemCount" variableName="maxItemCount" />
+	</sub-flow>
+
+    <sub-flow name="default-vars" doc:id="d0e7c966-3936-433b-afb0-574157529283" >
+		<set-variable value="${default.item.start}" doc:name="startItem" variableName="startItem" />
+		<set-variable value="#[vars.startItem - 1]" doc:name="startIndex" doc:id="bc1a8655-ef96-4152-9ffb-01ce347af5b1" variableName="startIndex"/>
+		<set-variable value="${default.item.maxcount}" doc:name="maxItemCount" variableName="maxItemCount" />
+		<set-variable value="#[1]" doc:name="numItemGroups" doc:id="937c8096-3fce-440d-a438-b578675d5a98" variableName="numItemGroups"/>
+	</sub-flow>
+
+	<sub-flow name="calc-vars" doc:id="1ccf5a5d-0b17-4023-a3e3-d1a28076c232" >
+		<choice doc:name="Choice" doc:id="a7d9ac32-3e1c-4350-a700-1e2617d4d6bc" >
+			<when expression="#[vars.maxItemCount as Number &lt;= 0]">
+				<raise-error doc:name="Raise error" doc:id="60a06f97-daf3-440f-bc9b-ca46a750ff9c" type="ERR:START_ITEM_ZERO_OR_LESS" description="The start item (index) value cannot be zero or less"/>
+			</when>
+			<otherwise >
+				<set-variable value='#[%dw 2.0 output application/java ---
+mod((vars.initialSize default 1),(vars.maxItemCount default 1)) as String {format: "0"} as Number]' doc:name="moduloRecords" variableName="moduloRecords" />
+			</otherwise>
+		</choice>
+		<set-variable value='#[%dw 2.0 output application/json ---
+if (vars.moduloRecords != 0) 
+((vars.initialSize default 1)/( vars.maxItemCount default 1))  as String {format: "0", roundMode:"DOWN"} + 1
+else
+((vars.initialSize default 1)/( vars.maxItemCount default 1)) as String {format: "0", roundMode:"DOWN"}]' doc:name="numItemGroups" variableName="numItemGroups" />
+	</sub-flow>
+
+	<sub-flow name="calc-indices" doc:id="4f7a3e2b-053b-4a31-b6ea-c21061cdb7d6" >
+		<choice doc:name="Choice">
+            <when expression="#[vars.maxItemCount == vars.initialSize]">
+				<set-variable value="0" doc:name="startIndex" variableName="startIndex"/>
+				<set-variable value="#[vars.initialSize - 2]" doc:name="endIndex" variableName="endIndex"/>
+            </when>
+            <when expression="#[vars.startItem as Number == 1 and vars.numItemGroups == 1]">
+				<set-variable value="0" doc:name="startIndex" variableName="startIndex"/>
+				<set-variable value="#[vars.initialSize - 1]" doc:name="endIndex" variableName="endIndex"/>
+            </when>
+            <when expression="#[(vars.startItem == '1') and (vars.moduloRecords &gt; 0)]">
+				<set-variable value="#[vars.startItem - 1]" doc:name="startIndex" variableName="startIndex"/>
+				<set-variable value="#[%dw 2.0 output application/java --- (vars.maxItemCount as Number) - 1]" doc:name="endIndex" variableName="endIndex"/>
+            </when>
+            <when expression="#[(vars.startIndex + vars.moduloRecords == vars.initialSize)]">
+				<set-variable value="#[vars.startItem - 1]" doc:name="startIndex" variableName="startIndex"/>
+				<set-variable value="#[%dw 2.0 output application/java --- (vars.startIndex + vars.moduloRecords as Number) - 1]" doc:name="endIndex" variableName="endIndex"/>
+            </when>
+            <otherwise>
+				<set-variable value="#[vars.startItem - 1]" doc:name="startIndex" variableName="startIndex"/>
+				<set-variable value="#[%dw 2.0 output application/java --- vars.startIndex + vars.maxItemCount - 1]" doc:name="endIndex" variableName="endIndex"/>
+            </otherwise>
+        </choice>
+	</sub-flow>
+	
+	</mule>

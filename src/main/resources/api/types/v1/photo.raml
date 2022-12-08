@@ -1,0 +1,54 @@
+#%RAML 1.0 DataType
+type: object
+properties:
+  id:
+    description: primary key or id
+    type: string
+    required: true
+    example: "123"
+  name:
+    description: File name of the image
+    type: string
+    required: true
+    example: "YMP_EOS6D_09122022_3099.JPG"
+  type:
+    description: Type of the image, either RAW or JPG
+    type: string
+    required: true
+    example: "RAW/JPG"
+  status:
+    description: Status of the image on the initial storage drive
+    type: string
+    required: false
+    example: "NULL/NOREVIEW/REVIEW/EDITING/REJECTED/EDITED/READY/PUBLISHED"
+  createdBy:
+    description: Camera that created the image
+    type: string
+    required: true
+    example: "EOS-6D/REBEL-T7"
+  driveName:
+    description: Name of the initial storage drive device 
+    type: string
+    required: true
+    example: "PHOTO-1"
+  driveCamera:
+    description: Parent folder on the initial storage drive
+    type: string
+    required: true
+    example: "E0S-6D/REBEL-T7"
+  driveFolder:
+    description: Folder name where image resides on the initial storage drive
+    type: string
+    required: true
+    example: "2022_09_12"
+  backup:
+    description: Either yes or no to having a backup
+    type: string
+    required: true
+    example: "YES/NO"
+  notes:
+    description: minimal commentary
+    type: string
+    required: true
+    example: "Nothing to report" 
+    

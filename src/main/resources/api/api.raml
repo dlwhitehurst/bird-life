@@ -1,0 +1,67 @@
+#%RAML 1.0
+
+title:       Mule4 Bird Life API
+description: This API supports data related to Birding and Bird Photography
+baseUri:     ${mule.protocol}://${mule.host}:${mule.port}/api/v1
+
+documentation:
+  - title:   Mule4 Bird-Life API
+    content: |
+      Overview of supported operations...
+
+mediaType: application/json
+version: v1
+
+types:
+  photo-type: !include types/v1/photo.raml
+  shoot-location-type: !include types/v1/shoot-location.raml
+   
+
+/:
+  get:
+    description: Retrieve the System Time and API Welcome message
+    responses:
+      200:
+        body:
+          application/json:
+            example: !include examples/welcome.json
+            
+/health:
+  description: Dead simple health check
+  get:
+    responses:
+      200:
+        body:
+          application/json:
+            example: !include examples/success-health.json
+
+/photos:
+  description: Stored photo resources
+  get:
+    description: Retrieve a list of photos
+    queryParameters:
+      startItem:
+        example: 1
+        type: number
+        format: int
+        required: false
+      maxItemCount:
+        example: 20
+        type: number
+        format: int
+        required: false
+    responses:
+      200:
+        body:
+          application/json:
+            example: !include examples/photos.json
+
+/locations:
+  description: Phoot shoot location resources
+  get:
+    description: Retrieve a list of photo shoot locations
+    responses:
+      200:
+        body:
+          application/json:
+            example: !include examples/locations.json
