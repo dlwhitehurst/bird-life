@@ -129,6 +129,73 @@ The following curl command will call the GET API resource for `/photos`.
 curl -i http://localhost:8081/api/v1/photos
 ```
 
+You should get a response something like this.
+```
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=UTF-8
+Content-Length: 1561
+Date: Thu, 08 Dec 2022 18:48:39 GMT
+
+{
+  "data": [
+    {
+      "id": "123",
+      "name": "IMG_3456.CR2",
+      "type": "RAW",
+      "status": "REVIEWED",
+      "created-by": "CAMERA",
+      "drive-folder": "2022_09_12",
+      "drive-camera": "EOS-6D",
+      "drive-name": "PHOTO-1",
+      "backup": "false",
+      "notes": "Nothing to report"
+    },
+    {
+      "id": "124",
+      "name": "YMP_EOS6D_09122022_3456.JPG",
+      "type": "JPG",
+      "status": "Published/Watermarked",
+      "created-by": "ADOBE",
+      "drive-folder": "2022_09_12",
+      "drive-camera": "EOS-6D",
+      "drive-name": "C-WINDOWS",
+      "backup": "false",
+      "notes": "All processing complete"
+    },
+    {
+      "id": "125",
+      "name": "IMG_3457.CR2",
+      "type": "RAW",
+      "status": "REVIEWED",
+      "created-by": "CAMERA",
+      "drive-folder": "2022_09_12",
+      "drive-camera": "EOS-6D",
+      "drive-name": "PHOTO-1",
+      "backup": "false",
+      "notes": "Nothing to report"
+    },
+    {
+      "id": "126",
+      "name": "IMG_3456.CR2",
+      "type": "RAW",
+      "status": "REVIEWED",
+      "created-by": "CAMERA",
+      "drive-folder": "2022_09_12",
+      "drive-camera": "EOS-6D",
+      "drive-name": "PHOTO-1",
+      "backup": "false",
+      "notes": "Nothing to report"
+    }
+  ],
+  "links": {
+    "first": "/api/v1/photos?startItem=1&maxItemCount=4",
+    "self": "/api/v1/photos?startItem=1&maxItemCount=4",
+    "next": "/api/v1/photos?startItem=5&maxItemCount=4",
+    "previous": "/api/v1/photos?startItem=1&maxItemCount=4",
+    "last": "/api/v1/photos?startItem=25&maxItemCount=4"
+  }
+}
+```
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
@@ -136,9 +203,7 @@ curl -i http://localhost:8081/api/v1/photos
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
-_For more examples, please refer to the [Documentation](https://example.com)_
+Later
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -188,7 +253,7 @@ Distributed under the Apache 2.0 License. See `LICENSE.txt` for more information
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - email@email_client.com
+David L Whitehurst - dlwhitehurst@gmail.com
 
 Project Link: [https://github.com/dlwhitehurst/bird-life](https://github.com/dlwhitehurst/bird-life)
 
