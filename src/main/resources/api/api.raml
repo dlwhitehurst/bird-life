@@ -55,6 +55,19 @@ types:
         body:
           application/json:
             example: !include examples/photos.json
+  post:
+    description: create the photo resource object
+    body:
+      application/json:
+        type: photo-type
+        example: !include examples/photo.json
+    responses:
+      201: # - Created
+        body:
+          application/json:
+            type: photo-type
+            example: !include examples/photo.json           
+        
 
 /locations:
   description: Phoot shoot location resources

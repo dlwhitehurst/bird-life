@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  # Database
+  db:
+    container_name: mariadb
+    image: mysql:latest
+    environment:
+      MYSQL_DATABASE: 
+      MYSQL_ROOT_PASSWORD: abc123
+    volumes:
+      - ./mariadb:/docker-entrypoint-initdb.d
+    ports:
+      - '3306:3306'
+    expose:
+      - 3306
+    
