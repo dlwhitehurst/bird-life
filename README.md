@@ -30,21 +30,16 @@
 <br />
 <div align="center">
   <a href="https://github.com/dlwhitehurst/bird-life">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+    <img src="https://dlwhitehurst.com" alt="Logo" width="80" height="80">
   </a>
 
-<h3 align="center">project_title</h3>
+<h3 align="center">Bird Life</h3>
 
   <p align="center">
-    project_description
+    This project is used to showcase a Mule4 API implementation related to my birding and photography hobby.
     <br />
-    <a href="https://github.com/dlwhitehurst/bird-life"><strong>Explore the docs »</strong></a>
-    <br />
-    <br />
-    <a href="https://github.com/dlwhitehurst/bird-life">View Demo</a>
-    ·
     <a href="https://github.com/dlwhitehurst/bird-life/issues">Report Bug</a>
-    ·
+	.
     <a href="https://github.com/dlwhitehurst/bird-life/issues">Request Feature</a>
   </p>
 </div>
@@ -81,10 +76,8 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
-
-Here's a blank template to get started: To avoid retyping too much info. Do a search and replace with your text editor for the following: `dlwhitehurst`, `bird-life`, `twitter_handle`, `linkedin_username`, `email`, `email_client`, `project_title`, `project_description`
+This project stems from a promise to show how to do paging of large collections returned by
+the server using REST and implementing using Hypertext as the Engine of Application State or HATEOAS.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -92,48 +85,42 @@ Here's a blank template to get started: To avoid retyping too much info. Do a se
 
 ### Built With
 
-* [Next.js](https://nextjs.org/)
-* [React.js](https://reactjs.org/)
-* [Vue.js](https://vuejs.org/)
-* [Angular](https://angular.io/)
-* [Svelte](https://svelte.dev/)
-* [Laravel](https://laravel.com)
-* [Bootstrap](https://getbootstrap.com)
-* [JQuery](https://jquery.com)
+* [Mule4.4](https://docs.mulesoft.com/mule-runtime/4.4/intro-mule-message)
+* [Anypoint Studio 7.14.0](https://www.mulesoft.com/platform/studio)
+* [RAML 1.0](https://raml.org/)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-
 
 
 <!-- GETTING STARTED -->
 ## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
+These instructions can be used to run this project in AnypointStudio and see the HATEOAS implementation
+in operation. Be sure to checkout the code on the main branch as other branches are used as working code
+and are not stable.
 
 ### Prerequisites
+Before you clone and checkout the `main` branch, be sure that you have the following installed.
 
-This is an example of how to list things you need to use the software and how to install them.
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
+- [Git](https://git-scm.com/)
+- [Anypoint Studio 7+](https://www.mulesoft.com/platform/studio)(preferably version 7.14+)
 
 ### Installation
+Clone the project locally and then run the API deployment in Anypoint Studio
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
-   ```sh
+1. Clone the repo
+   ```bash
    git clone https://github.com/dlwhitehurst/bird-life.git
    ```
-3. Install NPM packages
-   ```sh
-   npm install
-   ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
-   ```
+2. Start AnypointStudio
+
+3. Import the project
+
+4. Run the project as a Mule Application in AnypointStudio
+
+### Make a Request to the Mule Server
+There are several ways to interact with the REST API. Mulesoft recommends
+the use of ARC Client or Advanced Rest Client [![Advanced Rest Client]][arc-url]
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -228,3 +215,4 @@ Project Link: [https://github.com/dlwhitehurst/bird-life](https://github.com/dlw
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/linkedin_username
 [product-screenshot]: images/screenshot.png
+[arc-url]: https://install.advancedrestclient.com/
