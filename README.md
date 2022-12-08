@@ -199,6 +199,28 @@ Date: Thu, 08 Dec 2022 18:48:39 GMT
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
+<!-- API Overview -->
+## API Overview
+* Summary: 
+    * A REST API designed for obtaining photo and birding information. 
+    * The API has four resources: `photos`, `locations`, `birds`, and `birders`.
+* Version: 1.0.0
+
+## Specification ##
+The RAML specification for the Bird Life API can be viewed [HERE](https://github.com/dlwhitehurst/bird-life/blob/main/src/main/resources/api/api.raml).
+
+## Functional Requirements ##
+* The API should allow the user to create, read, update and delete (maybe later) a `photo`.
+* The API should allow the user to retrieve a list of `photos` that is filterable by params. (under construction)
+* The API should allow the user to create, read, update and delete a `location`.
+* The API should allow the user to retrieve a list of `locations` that is filterable by params. (under construction)
+* The API should allow the user to create, read, update and delete a `bird`.
+* The API should allow the user to retrieve a list of `birds`.
+* The API should allow the user to create, read, update and delete a `birder`.
+* The API should allow the user to retrieve a list of `birders`.
+* The API should paginate collections from GET requests and be configurable by `max_items` per page
+ 
+<p align="right">(<a href="#top">back to top</a>)</p>
 
 <!-- USAGE EXAMPLES -->
 ## Usage
